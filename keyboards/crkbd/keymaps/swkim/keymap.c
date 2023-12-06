@@ -35,6 +35,9 @@ enum layer_names {
 #define NEXT_T G(KC_E)
 #define HOMEROW S(G(KC_SPC))
 
+#define SWITCH1 A(KC_TAB)
+#define SWITCH2 G(KC_GRV)
+
 typedef enum {
     TD_NONE,
     TD_UNKNOWN,
@@ -84,7 +87,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
       KC_TILD, KC_EXLM,   KC_AT, KC_HASH,  KC_DLR, KC_PERC,                      KC_CIRC, KC_AMPR, KC_ASTR, KC_MINS, KC_PLUS, KC_EQL,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      _______, XXXXXXX, KC_LBRC, KC_RBRC, KC_LPRN, KC_RPRN,                      XXXXXXX, XXXXXXX, KC_COMM,  KC_DOT, KC_SLSH, KC_BSLS,
+      KC_GRV,  SWITCH1, SWITCH2, XXXXXXX, KC_LPRN, KC_RPRN,                      KC_LBRC, KC_RBRC, KC_COMM,  KC_DOT, KC_SLSH, KC_BSLS,
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
                                           _______, _______, _______,   HOMEROW, _______, _______
                                       //`--------------------------'  `--------------------------'
@@ -108,7 +111,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
       XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                      XXXXXXX, KC_LEFT, KC_DOWN, KC_RGHT, XXXXXXX, XXXXXXX,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                      XXXXXXX, PREV_T,  NEXT_T, XXXXXXX, XXXXXXX, XXXXXXX,
+      _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                      XXXXXXX, PREV_T,  NEXT_T,  NEXT_T, XXXXXXX, XXXXXXX,
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
                                           _______, _______, _______,   _______, _______, _______
                                       //`--------------------------'  `--------------------------'
@@ -166,5 +169,5 @@ void gui_special_reset (tap_dance_state_t *state, void *user_data) {
 
 
 tap_dance_action_t tap_dance_actions[] = {
-  [T_GUI]     = ACTION_TAP_DANCE_FN_ADVANCED(NULL, gui_special_finished, gui_special_reset)
+  [T_GUI] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, gui_special_finished, gui_special_reset)
 };
