@@ -85,7 +85,9 @@ bool oled_task_kb(void) {
     if (!oled_task_user()) {
         return false;
     }
+#ifdef BONGO_ENABLE
     draw_bongo(!is_keyboard_master());
+#endif
 
     return false;
 }
