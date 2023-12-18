@@ -13,8 +13,10 @@ enum layers_names { _BASE, _NUM, _FUN, _SPE, _NAV, _GAME };
 #define GAME MO(_GAME)
 #define SPC_NAV LT(_NAV, KC_SPC)
 #define ESC_ALT MT(MOD_LALT, KC_ESC)
+#define SFT_ENT MT(MOD_LSFT, KC_ENT)
 #define NUM_TAB LT(_NUM, KC_TAB)
 
+#define SWITCH S(C(KC_TAB))
 
 // Left-hand home row mods
 #define HOME_A LGUI_T(KC_A)
@@ -54,30 +56,18 @@ combo_t key_combos[] = {
     COMBO(combo_tog_num_word2, TG(NUM)),
 };
 
-// bool get_permissive_hold(uint16_t keycode, keyrecord_t *record) {
-//     switch (keycode) {
-//         case HOME_F:
-//         case HOME_J:
-//              return true;
-//         default:
-//              return false;
-//     }
-// }
-
-
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     [_BASE] = LAYOUT_ortho_4x12(
         KC_Q,       KC_W,       KC_E,       KC_R,       KC_T,       XXXXXXX,    XXXXXXX,    KC_Y,       KC_U,       KC_I,       KC_O,       KC_P,
         HOME_A,     HOME_S,     HOME_D,     HOME_F,     KC_G,       XXXXXXX,    XXXXXXX,    KC_H,       HOME_J,     HOME_K,     HOME_L,     HOME_QUOT,
         KC_Z,       KC_X,       KC_C,       KC_V,       KC_B,       XXXXXXX,    XXXXXXX,    KC_N,       KC_M,       KC_COMM,    KC_DOT,     KC_SLSH,
-//        XXXXXXX,    XXXXXXX,    XXXXXXX,    ESC_ALT,    KC_LCTL,    NUM_TAB,    KC_ENT,     SPC_NAV,    KC_BSPC,    FUN,        XXXXXXX,    XXXXXXX
-        XXXXXXX,    XXXXXXX,    ESC_ALT,    KC_LCTL,    NUM_TAB,    XXXXXXX,    XXXXXXX,    KC_ENT,     SPC_NAV,    KC_BSPC,    FUN,        XXXXXXX
+        XXXXXXX,    XXXXXXX,    ESC_ALT,    KC_LCTL,    NUM_TAB,    XXXXXXX,    XXXXXXX,    SFT_ENT,    SPC_NAV,    KC_BSPC,    FUN,        XXXXXXX
     ),
     [_NUM] = LAYOUT_ortho_4x12(
         XXXXXXX,    KC_1,       KC_2,       KC_3,       KC_BSLS,    XXXXXXX,    XXXXXXX,    KC_TILD,    KC_EXLM,    KC_AT,      KC_HASH,    KC_UNDS,
         KC_0,       KC_4,       KC_5,       KC_6,       KC_PLUS,    XXXXXXX,    XXXXXXX,    KC_ASTR,    KC_DLR,     KC_PERC,    KC_CIRC,    KC_MINS,
-        XXXXXXX,    KC_7,       KC_8,       KC_9,       KC_EQL,     XXXXXXX,    XXXXXXX,    KC_GRV,     KC_AMPR,    KC_COMM,    KC_DOT,     KC_SLSH,
+        SWITCH,     KC_7,       KC_8,       KC_9,       KC_EQL,     XXXXXXX,    XXXXXXX,    KC_GRV,     KC_AMPR,    KC_COMM,    KC_DOT,     KC_SLSH,
         _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______,    XXXXXXX
     ),
     [_FUN] = LAYOUT_ortho_4x12(
@@ -87,9 +77,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______
     ),
     [_SPE] = LAYOUT_ortho_4x12(
-        KC_F10,     KC_F1,      KC_F2,      KC_F3,      _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______,
-        KC_F11,     KC_F4,      KC_F5,      KC_F6,      _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______,
-        KC_F12,     KC_F7,      KC_F8,      KC_F9,      _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______,
+        _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______,
+        _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______,
+        _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______,
         _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______
     ),
     [_NAV] = LAYOUT_ortho_4x12(
