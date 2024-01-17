@@ -36,3 +36,4 @@
 #error "rgblight and rgb_matrix both enabled"
 #endif
 #endif
+#define DYNAMIC_KEYMAP_LAYER_COUNT 6
