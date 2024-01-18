@@ -44,7 +44,8 @@ const uint16_t PROGMEM combo_cc[] = {HOME_D, KC_C, COMBO_END};
 const uint16_t PROGMEM combo_cv[] = {HOME_F, KC_V, COMBO_END};
 const uint16_t PROGMEM combo_cx[] = {HOME_S, KC_X, COMBO_END};
 const uint16_t PROGMEM combo_cb[] = {KC_G, KC_B, COMBO_END};
-const uint16_t PROGMEM combo_semicolon[] = {HOME_L, HOME_QUOT, COMBO_END};
+const uint16_t PROGMEM combo_semicolon[] = {KC_DOT, KC_QUES, COMBO_END};
+const uint16_t PROGMEM combo_colon[] = {HOME_L, HOME_QUOT, COMBO_END};
 
 const uint16_t PROGMEM combo_capsword[] = {HOME_J, HOME_F, COMBO_END};
 const uint16_t PROGMEM combo_tog_num_word[] = {KC_W, KC_E, KC_R, COMBO_END};
@@ -63,6 +64,7 @@ combo_t key_combos[] = {
     COMBO(combo_cx, C(KC_X)),
     COMBO(combo_cb, C(KC_B)),
     COMBO(combo_semicolon, KC_SCLN),
+    COMBO(combo_colon, KC_COLN),
     COMBO(combo_capsword, QK_CAPS_WORD_TOGGLE),
     COMBO(combo_tog_num_word, TG(NUM)),
     COMBO(combo_tog_num_word2, TG(NUM)),
@@ -75,7 +77,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_Q,       KC_W,       KC_E,       KC_R,       KC_T,       XXXXXXX,    XXXXXXX,    KC_Y,       KC_U,       KC_I,       KC_O,       KC_P,
         HOME_A,     HOME_S,     HOME_D,     HOME_F,     KC_G,       XXXXXXX,    XXXXXXX,    KC_H,       HOME_J,     HOME_K,     HOME_L,     HOME_QUOT,
         KC_Z,       KC_X,       KC_C,       KC_V,       KC_B,       XXXXXXX,    XXXXXXX,    KC_N,       KC_M,       KC_COMM,    KC_DOT,     KC_QUES,
-        XXXXXXX,    XXXXXXX,    ESC_ALT,    KC_LCTL,    NUM_TAB,    XXXXXXX,    XXXXXXX,    SFT_ENT,    SPC_NAV,    KC_BSPC,    FUN,        TT(_GAME)
+        XXXXXXX,    XXXXXXX,    KC_ESC,     KC_LCTL,    NUM_TAB,    XXXXXXX,    XXXXXXX,    SFT_ENT,    SPC_NAV,    KC_BSPC,    FUN,        TT(_GAME)
     ),
     [_GAME] = LAYOUT(
         KC_F1,      KC_F2,      KC_F3,      KC_F4,      KC_F5,      KC_F6,      KC_F7,      KC_F8,      KC_F9,      KC_F10,     KC_F11,     KC_F12,
