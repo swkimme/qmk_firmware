@@ -20,6 +20,7 @@ enum layers_names { _BASE, _GAME, _NUM, _FUN, _SPE, _NAV };
 #define P_TAB C(KC_PGUP)
 #define N_TAB C(KC_PGDN)
 #define SWITCH2 S(C(KC_TAB))
+#define CAPTURE S(G(KC_S))
 
 // Left-hand home row mods
 #define HOME_A LGUI_T(KC_A)
@@ -53,6 +54,8 @@ const uint16_t PROGMEM combo_colon[] = {HOME_L, HOME_QUOT, COMBO_END};
 const uint16_t PROGMEM combo_capsword[] = {HOME_J, HOME_F, COMBO_END};
 const uint16_t PROGMEM combo_tog_num_word[] = {KC_W, KC_E, KC_R, COMBO_END};
 const uint16_t PROGMEM combo_tog_num_word2[] = {KC_1, KC_2, KC_3, COMBO_END};
+const uint16_t PROGMEM combo_capture[] = {KC_Q, KC_W, KC_E, KC_R, COMBO_END};
+
 combo_t key_combos[] = {
     COMBO(combo_bracket_v_round_l, KC_LPRN),
     COMBO(combo_bracket_v_round_r, KC_RPRN),
@@ -71,6 +74,7 @@ combo_t key_combos[] = {
     COMBO(combo_capsword, QK_CAPS_WORD_TOGGLE),
     COMBO(combo_tog_num_word, TG(NUM)),
     COMBO(combo_tog_num_word2, TG(NUM)),
+    COMBO(combo_capture, CAPTURE),
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
