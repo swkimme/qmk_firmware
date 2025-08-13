@@ -50,8 +50,9 @@ const uint16_t PROGMEM combo_cx[] = {HOME_S, KC_X, COMBO_END};
 const uint16_t PROGMEM combo_cb[] = {KC_G, KC_B, COMBO_END};
 const uint16_t PROGMEM combo_semicolon[] = {KC_DOT, KC_QUES, COMBO_END};
 const uint16_t PROGMEM combo_colon[] = {HOME_L, HOME_QUOT, COMBO_END};
+const uint16_t PROGMEM combo_colon_num[] = {KC_CIRC, KC_MINS, COMBO_END};
 
-const uint16_t PROGMEM combo_capsword[] = {HOME_J, HOME_F, COMBO_END};
+const uint16_t PROGMEM combo_capsword[] = {HOME_J, KC_G, KC_H, HOME_F, COMBO_END};
 const uint16_t PROGMEM combo_tog_num_word[] = {KC_W, KC_E, KC_R, COMBO_END};
 const uint16_t PROGMEM combo_tog_num_word2[] = {KC_1, KC_2, KC_3, COMBO_END};
 const uint16_t PROGMEM combo_capture[] = {KC_Q, KC_W, KC_E, KC_R, COMBO_END};
@@ -71,7 +72,9 @@ combo_t key_combos[] = {
     COMBO(combo_cb, C(KC_B)),
     COMBO(combo_semicolon, KC_SCLN),
     COMBO(combo_colon, KC_COLN),
-    COMBO(combo_capsword, QK_CAPS_WORD_TOGGLE),
+    COMBO(combo_colon_num, KC_COLN),
+    //COMBO(combo_capsword, QK_CAPS_WORD_TOGGLE),
+    COMBO(combo_capsword, KC_CAPS),
     COMBO(combo_tog_num_word, TG(NUM)),
     COMBO(combo_tog_num_word2, TG(NUM)),
     COMBO(combo_capture, CAPTURE),

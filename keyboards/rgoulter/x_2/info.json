@@ -19,11 +19,11 @@
     "url": "",
     "usb": {
         "device_version": "1.0.0",
-        "pid": "0x0000",
+        "pid": "0x3487",
         "shared_endpoint": {
             "keyboard": true
         },
-        "vid": "0xFEED"
+        "vid": "0x7B02"
     },
     "community_layouts": ["ortho_5x12"],
     "layout_aliases": {
