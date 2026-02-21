@@ -21,6 +21,8 @@ enum layers_names { _BASE, _GAME, _NUM, _FUN, _SPE, _NAV };
 #define N_TAB C(KC_PGDN)
 #define SWITCH2 S(C(KC_TAB))
 #define CAPTURE S(G(KC_S))
+#define BROWSER_BACK A(S(G(KC_O)))
+#define BROWSER_FORWARD A(S(G(KC_P)))
 
 // Left-hand home row mods
 #define HOME_A LGUI_T(KC_A)
@@ -51,6 +53,8 @@ const uint16_t PROGMEM combo_cb[] = {KC_G, KC_B, COMBO_END};
 const uint16_t PROGMEM combo_semicolon[] = {KC_DOT, KC_QUES, COMBO_END};
 const uint16_t PROGMEM combo_colon[] = {HOME_L, HOME_QUOT, COMBO_END};
 const uint16_t PROGMEM combo_colon_num[] = {KC_CIRC, KC_MINS, COMBO_END};
+const uint16_t PROGMEM combo_back[] = {KC_M, KC_COMM, COMBO_END};
+const uint16_t PROGMEM combo_forward[] = {KC_COMM, KC_DOT, COMBO_END};
 
 const uint16_t PROGMEM combo_capsword[] = {HOME_J, KC_G, KC_H, HOME_F, COMBO_END};
 const uint16_t PROGMEM combo_tog_num_word[] = {KC_W, KC_E, KC_R, COMBO_END};
@@ -73,6 +77,8 @@ combo_t key_combos[] = {
     COMBO(combo_semicolon, KC_SCLN),
     COMBO(combo_colon, KC_COLN),
     COMBO(combo_colon_num, KC_COLN),
+    COMBO(combo_back, BROWSER_BACK),
+    COMBO(combo_forward, BROWSER_FORWARD),
     //COMBO(combo_capsword, QK_CAPS_WORD_TOGGLE),
     COMBO(combo_capsword, KC_CAPS),
     COMBO(combo_tog_num_word, TG(NUM)),
