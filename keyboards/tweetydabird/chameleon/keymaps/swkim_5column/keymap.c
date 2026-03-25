@@ -13,6 +13,7 @@ enum layers_names { _BASE, _GAME, _NUM, _FUN, _SPE, _NAV };
 
 #define SPC_NAV LT(_NAV, KC_SPC)
 #define ESC_ALT MT(MOD_LALT, KC_ESC)
+#define CTL_F13 MT(MOD_LCTL, KC_F13)
 #define SFT_ENT MT(MOD_LSFT, KC_ENT)
 #define NUM_TAB LT(_NUM, KC_TAB)
 
@@ -92,7 +93,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_Q,       KC_W,       KC_E,       KC_R,       KC_T,       XXXXXXX,    XXXXXXX,    KC_Y,       KC_U,       KC_I,       KC_O,       KC_P,
         HOME_A,     HOME_S,     HOME_D,     HOME_F,     KC_G,       XXXXXXX,    XXXXXXX,    KC_H,       HOME_J,     HOME_K,     HOME_L,     HOME_QUOT,
         KC_Z,       KC_X,       KC_C,       KC_V,       KC_B,       XXXXXXX,    XXXXXXX,    KC_N,       KC_M,       KC_COMM,    KC_DOT,     KC_QUES,
-        XXXXXXX,    XXXXXXX,    ESC_ALT,    KC_LCTL,    NUM_TAB,    XXXXXXX,    XXXXXXX,    SFT_ENT,    SPC_NAV,    KC_BSPC,    FUN,        TT(_GAME)
+        XXXXXXX,    XXXXXXX,    ESC_ALT,    CTL_F13,    NUM_TAB,    XXXXXXX,    XXXXXXX,    SFT_ENT,    SPC_NAV,    KC_BSPC,    FUN,        TT(_GAME)
     ),
     [_GAME] = LAYOUT_ortho_4x12(
         KC_ESC,     KC_1,       KC_2,       KC_3,       KC_4,       KC_5,       KC_6,       KC_7,       KC_8,       KC_9,       KC_0,       KC_BSPC,
