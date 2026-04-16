@@ -15,3 +15,8 @@
 #define BILATERAL_COMBINATIONS_TYPING_STREAK_TIMEOUT 210  /* ms */
 
 #define TAPPING_TOGGLE 3
+
+#define COMBO_TERM_PER_COMBO
+#ifndef COMBO_TERM
+#    define COMBO_TERM 32
+#endif

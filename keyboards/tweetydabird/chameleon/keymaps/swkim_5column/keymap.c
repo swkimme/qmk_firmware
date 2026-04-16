@@ -3,11 +3,14 @@
 
 #include QMK_KEYBOARD_H
 
+#define DICT_MODS (MOD_BIT(KC_LCTL) | MOD_BIT(KC_LGUI))
 
 enum layers_names { _BASE, _GAME, _NUM, _FUN, _SPE, _NAV };
 
 enum custom_keycodes {
-    DICT = QK_USER, /* Hold: Left Ctrl + Win (GUI); release both on key up */
+    DICT  = QK_USER, /* Hold: Left Ctrl + Win (GUI); release on key up */
+    CXC_X = QK_USER_1, /* BASE X: HID KC_X; lets XC dict combo use CXC_* without delaying other combos on KC_X */
+    CXC_C = QK_USER_2, /* BASE C: HID KC_C */
 };
 
 #define NUM MO(_NUM)
@@ -50,9 +53,9 @@ const uint16_t PROGMEM combo_bracket_v_curly_r[] = {KC_O, HOME_L, COMBO_END};
 const uint16_t PROGMEM combo_bracket_v_angled_l[] = {KC_T, KC_G, COMBO_END};
 const uint16_t PROGMEM combo_bracket_v_angled_r[] = {KC_Y, KC_H, COMBO_END};
 
-const uint16_t PROGMEM combo_cc[] = {HOME_D, KC_C, COMBO_END};
+const uint16_t PROGMEM combo_cc[] = {HOME_D, CXC_C, COMBO_END};
 const uint16_t PROGMEM combo_cv[] = {HOME_F, KC_V, COMBO_END};
-const uint16_t PROGMEM combo_cx[] = {HOME_S, KC_X, COMBO_END};
+const uint16_t PROGMEM combo_cx[] = {HOME_S, CXC_X, COMBO_END};
 const uint16_t PROGMEM combo_cb[] = {KC_G, KC_B, COMBO_END};
 const uint16_t PROGMEM combo_semicolon[] = {KC_DOT, KC_QUES, COMBO_END};
 const uint16_t PROGMEM combo_colon[] = {HOME_L, HOME_QUOT, COMBO_END};
@@ -64,6 +67,8 @@ const uint16_t PROGMEM combo_capsword[] = {HOME_J, KC_G, KC_H, HOME_F, COMBO_END
 const uint16_t PROGMEM combo_tog_num_word[] = {KC_W, KC_E, KC_R, COMBO_END};
 const uint16_t PROGMEM combo_tog_num_word2[] = {KC_1, KC_2, KC_3, COMBO_END};
 const uint16_t PROGMEM combo_capture[] = {KC_Q, KC_W, KC_E, KC_R, COMBO_END};
+const uint16_t PROGMEM combo_xc_dict[] = {CXC_X, CXC_C, COMBO_END};
+const uint16_t PROGMEM combo_xz_ent[] = {KC_Z, CXC_X, COMBO_END};
 
 combo_t key_combos[] = {
     COMBO(combo_bracket_v_round_l, KC_LPRN),
@@ -88,6 +93,8 @@ combo_t key_combos[] = {
     COMBO(combo_tog_num_word, TG(NUM)),
     COMBO(combo_tog_num_word2, TG(NUM)),
     COMBO(combo_capture, CAPTURE),
+    COMBO(combo_xc_dict, DICT),
+    COMBO(combo_xz_ent, KC_ENT),
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -95,8 +102,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_BASE] = LAYOUT_ortho_4x12(
         KC_Q,       KC_W,       KC_E,       KC_R,       KC_T,       XXXXXXX,    XXXXXXX,    KC_Y,       KC_U,       KC_I,       KC_O,       KC_P,
         HOME_A,     HOME_S,     HOME_D,     HOME_F,     KC_G,       XXXXXXX,    XXXXXXX,    KC_H,       HOME_J,     HOME_K,     HOME_L,     HOME_QUOT,
-        KC_Z,       KC_X,       KC_C,       KC_V,       KC_B,       XXXXXXX,    XXXXXXX,    KC_N,       KC_M,       KC_COMM,    KC_DOT,     KC_QUES,
-        XXXXXXX,    DICT,       ESC_ALT,    KC_LCTL,    NUM_TAB,    XXXXXXX,    XXXXXXX,    SFT_ENT,    SPC_NAV,    KC_BSPC,    FUN,        TT(_GAME)
+        KC_Z,       CXC_X,      CXC_C,      KC_V,       KC_B,       XXXXXXX,    XXXXXXX,    KC_N,       KC_M,       KC_COMM,    KC_DOT,     KC_QUES,
+        XXXXXXX,    XXXXXXX,    ESC_ALT,    KC_LCTL,    NUM_TAB,    XXXXXXX,    XXXXXXX,    SFT_ENT,    SPC_NAV,    KC_BSPC,    FUN,        TT(_GAME)
     ),
     [_GAME] = LAYOUT_ortho_4x12(
         KC_ESC,     KC_1,       KC_2,       KC_3,       KC_4,       KC_5,       KC_6,       KC_7,       KC_8,       KC_9,       KC_0,       KC_BSPC,
@@ -130,14 +137,48 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     )
 };
 
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-    if (keycode == DICT) {
-        if (record->event.pressed) {
-            register_mods(MOD_BIT(KC_LCTL) | MOD_BIT(KC_LGUI));
-        } else {
-            unregister_mods(MOD_BIT(KC_LCTL) | MOD_BIT(KC_LGUI));
-        }
-        return false;
+uint16_t get_combo_term(uint16_t index, combo_t *combo) {
+    (void)index;
+    /* Solo CXC_X / CXC_C wait max of these when the key is only part of incomplete combos that include it. */
+    if (combo->keys == combo_xc_dict) {
+        return 32;
     }
-    return true;
+    if (combo->keys == combo_cx) {
+        return 26;
+    }
+    if (combo->keys == combo_cc) {
+        return 26;
+    }
+    if (combo->keys == combo_xz_ent) {
+        return 32;
+    }
+    return COMBO_TERM;
+}
+
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+    switch (keycode) {
+        case DICT:
+            if (record->event.pressed) {
+                register_mods(DICT_MODS);
+            } else {
+                unregister_mods(DICT_MODS);
+            }
+            return false;
+        case CXC_X:
+            if (record->event.pressed) {
+                register_code(KC_X);
+            } else {
+                unregister_code(KC_X);
+            }
+            return false;
+        case CXC_C:
+            if (record->event.pressed) {
+                register_code(KC_C);
+            } else {
+                unregister_code(KC_C);
+            }
+            return false;
+        default:
+            return true;
+    }
 }
