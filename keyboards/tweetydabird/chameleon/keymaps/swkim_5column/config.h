@@ -16,6 +16,10 @@
 
 #define TAPPING_TOGGLE 3
 
+/* Thumb key applies its hold mod immediately on another key press (fast rolling).
+ * Home row mods keep the default (tap-friendly) behavior. */
+#define HOLD_ON_OTHER_KEY_PRESS_PER_KEY
+
 #define COMBO_TERM_PER_COMBO
 #ifndef COMBO_TERM
 #    define COMBO_TERM 32

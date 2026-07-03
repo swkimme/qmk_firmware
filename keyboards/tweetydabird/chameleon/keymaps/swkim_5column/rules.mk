@@ -10,3 +10,6 @@ CAPS_WORD_ENABLE = yes
 
 # for BILATERAL_COMBINATIONS
 DEFERRED_EXEC_ENABLE = yes
+
+# Send OS-appropriate shortcuts for tab / desktop switching
+OS_DETECTION_ENABLE = yes
