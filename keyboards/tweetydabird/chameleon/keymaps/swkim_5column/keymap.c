@@ -32,8 +32,8 @@ enum custom_keycodes {
 #define ESC_ALT MT(MOD_LALT, KC_ESC)
 #define SFT_ENT MT(MOD_LSFT, KC_ENT)
 #define NUM_TAB LT(_NUM, KC_TAB)
-/* Left thumb: tap = 한/영 (KC_LNG1), hold = Ctrl (Windows) / Cmd (macOS, handled in process_record_user) */
-#define THMB_L LCTL_T(KC_LNG1)
+/* Left thumb: tap = Caps Lock (macOS maps Caps Lock to 한/영), hold = Ctrl (Windows) / Cmd (macOS, handled in process_record_user) */
+#define THMB_L LCTL_T(KC_CAPS)
 
 #define SWITCH S(C(KC_TAB))
 #define SWITCH2 S(C(KC_TAB))
@@ -188,7 +188,7 @@ static bool host_is_mac(void) {
  * macOS uses Cmd (G) for app shortcuts and Ctrl (C) for spaces. */
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
-        /* Left thumb: tap = 한/영, hold = Ctrl (Windows) / Cmd (macOS).
+        /* Left thumb: tap = Caps Lock (한/영 on macOS), hold = Ctrl (Windows) / Cmd (macOS).
          * Handled here (return false on hold) to bypass BILATERAL_COMBINATIONS, so a
          * fast thumb+key roll (e.g. thumb+T) applies the modifier immediately (Ctrl+T). */
         case THMB_L:
@@ -201,7 +201,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 }
                 return false;
             }
-            return true; /* tap => KC_LNG1 */
+            return true; /* tap => KC_CAPS */
         /* Home-row D: keep the normal mod-tap path (bilateral protection). Only remap
          * the hold modifier to Cmd on macOS. */
         case LCTL_T(KC_D):
