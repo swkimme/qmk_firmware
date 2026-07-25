@@ -188,7 +188,7 @@ static bool host_is_mac(void) {
  * macOS uses Cmd (G) for app shortcuts and Ctrl (C) for spaces. */
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
-        /* Left thumb: tap = Caps Lock (한/영 on macOS), hold = Ctrl (Windows) / Cmd (macOS).
+        /* Left thumb: hold = Ctrl (Windows) / Cmd (macOS); tap = 한/영 (Windows) / Caps Lock (macOS).
          * Handled here (return false on hold) to bypass BILATERAL_COMBINATIONS, so a
          * fast thumb+key roll (e.g. thumb+T) applies the modifier immediately (Ctrl+T). */
         case THMB_L:
@@ -201,15 +201,30 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 }
                 return false;
             }
-            return true; /* tap => KC_CAPS */
-        /* Home-row D: keep the normal mod-tap path (bilateral protection). Only remap
-         * the hold modifier to Cmd on macOS. */
+            if (record->event.pressed) { /* tap */
+                tap_code16(host_is_mac() ? KC_CAPS : KC_LNG1);
+            }
+            return false;
+        /* Home-row Ctrl positions (ㅇ=D, ㅏ=K): hold = Ctrl on Windows, Cmd on macOS. */
         case LCTL_T(KC_D):
+        case LCTL_T(KC_K):
             if (host_is_mac() && record->tap.count == 0) {
                 if (record->event.pressed) {
                     register_mods(MOD_BIT(KC_LGUI));
                 } else {
                     unregister_mods(MOD_BIT(KC_LGUI));
+                }
+                return false;
+            }
+            return true;
+        /* Home-row GUI positions (ㅁ=A, '=QUOT): hold = Win/GUI on Windows, Ctrl on macOS. */
+        case LGUI_T(KC_A):
+        case LGUI_T(KC_QUOT):
+            if (host_is_mac() && record->tap.count == 0) {
+                if (record->event.pressed) {
+                    register_mods(MOD_BIT(KC_LCTL));
+                } else {
+                    unregister_mods(MOD_BIT(KC_LCTL));
                 }
                 return false;
             }
